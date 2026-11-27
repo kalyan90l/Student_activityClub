@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Student Club Activity Tracker</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--text:#1d2433;--muted:#667085;--line:#e4e7ee;--pri:#4f46e5;--ok:#15803d;--bad:#b91c1c;--warn:#b45309;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151c;--card:#1b2030;--text:#e8eaf2;--muted:#9aa3b8;--line:#2c3348;--pri:#818cf8;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24}}
+:root[data-theme="dark"]{--bg:#12151c;--card:#1b2030;--text:#e8eaf2;--muted:#9aa3b8;--line:#2c3348;--pri:#818cf8;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24}
+*{box-sizing:border-box}
+:root{--scene:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='xMidYMid slice'%3E%3Cdefs%3E%3ClinearGradient id='s' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%231e2a6b'/%3E%3Cstop offset='.55' stop-color='%23d9774a'/%3E%3Cstop offset='1' stop-color='%23fcd9a0'/%3E%3C/linearGradient%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23233a2f'/%3E%3Cstop offset='1' stop-color='%23111d17'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23s)'/%3E%3Ccircle cx='1180' cy='520' r='110' fill='%23fff1c9' opacity='.9'/%3E%3Cg fill='%2315193a' opacity='.92'%3E%3Crect x='80' y='470' width='170' height='330'/%3E%3Crect x='260' y='400' width='130' height='400'/%3E%3Cpath d='M420 800V430l130-90 130 90v370z'/%3E%3Crect x='700' y='380' width='60' height='420'/%3E%3Cpath d='M730 300l50 80h-100z'/%3E%3Crect x='820' y='450' width='220' height='350'/%3E%3Crect x='1060' y='410' width='150' height='390'/%3E%3Crect x='1230' y='490' width='180' height='310'/%3E%3Crect x='1420' y='440' width='140' height='360'/%3E%3C/g%3E%3Cg fill='%23ffd88a' opacity='.8'%3E%3Crect x='110' y='510' width='20' height='28'/%3E%3Crect x='160' y='510' width='20' height='28'/%3E%3Crect x='290' y='450' width='18' height='26'/%3E%3Crect x='340' y='450' width='18' height='26'/%3E%3Crect x='500' y='470' width='22' height='30'/%3E%3Crect x='580' y='470' width='22' height='30'/%3E%3Crect x='860' y='500' width='20' height='28'/%3E%3Crect x='940' y='500' width='20' height='28'/%3E%3Crect x='1100' y='460' width='20' height='28'/%3E%3Crect x='1270' y='540' width='20' height='28'/%3E%3Crect x='1460' y='490' width='20' height='28'/%3E%3C/g%3E%3Cpath d='M0 780q400-60 800-20t800-10V900H0z' fill='url(%23g)'/%3E%3Cg fill='%230d1612'%3E%3Ccircle cx='160' cy='770' r='46'/%3E%3Ccircle cx='620' cy='790' r='38'/%3E%3Ccircle cx='1090' cy='785' r='50'/%3E%3Ccircle cx='1500' cy='775' r='42'/%3E%3C/g%3E%3C/svg%3E")}
+html{background:var(--bg)}
+body{margin:0;color:var(--text);font:15px/1.55 "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;background:var(--scene) center/cover no-repeat;z-index:-2}
+body::after{content:"";position:fixed;inset:0;background:color-mix(in srgb,var(--bg) 86%,transparent);z-index:-1}
+header{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;padding:44px max(24px,calc((100% - 1000px)/2)) 30px;color:#fff;background:linear-gradient(180deg,rgba(10,16,40,.35),rgba(10,16,40,.78)),var(--scene) center 62%/cover}
+header label{color:#e2e8f0}header select{background:rgba(255,255,255,.95);color:#111827;border:0;padding:8px 10px}
+header .g{color:#fff;border-color:rgba(255,255,255,.45)}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:600}
+.sub{margin:4px 0 0;opacity:.9;max-width:460px}
+h1{font-size:30px;line-height:1.15;margin:4px 0 0;letter-spacing:-.02em}h2{font-size:17px;margin:0 0 12px;letter-spacing:-.01em}h3{font-size:16px;margin:0;letter-spacing:-.01em}
+nav{display:flex;gap:4px;flex-wrap:wrap;padding:12px 20px;max-width:1040px;margin:0 auto}
+nav button{background:transparent;border:0;border-bottom:2px solid transparent;color:var(--muted);padding:8px 14px;border-radius:8px 8px 0 0;cursor:pointer;font:inherit;font-weight:600}nav button:hover{color:var(--text)}
+nav button.on{color:var(--pri);border-bottom-color:var(--pri)}
+main{padding:4px 20px 48px;max-width:1040px;margin:auto}
+.card{background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);transition:transform .15s,box-shadow .15s}.grid>.card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(16,24,40,.12)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sp{justify-content:space-between}
+input,select,textarea{width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:inherit;margin:4px 0 8px}
+button.b{background:var(--pri);color:#fff;border:0;padding:8px 14px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.15)}button.b:hover{filter:brightness(1.08)}button.g:hover{background:var(--bg)}
+button.g{background:transparent;color:var(--text);border:1px solid var(--line);padding:6px 10px;border-radius:8px;cursor:pointer}
+button.d{background:var(--bad)}button.k{background:var(--ok)}
+.tag{font-size:11px;font-weight:600;text-transform:capitalize;letter-spacing:.02em;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);background:var(--bg)}
+.pending{color:var(--warn)}.approved{color:var(--ok)}.rejected{color:var(--bad)}
+.m{color:var(--muted);font-size:13px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);font-size:14px}
+.scroll{overflow-x:auto}
+.stat{font-size:32px;font-weight:700;letter-spacing:-.02em;color:var(--pri)}th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+label{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="eyebrow">Campus Life Office</div><h1>Student Club Activity Tracker</h1><p class="sub">Clubs, events, attendance and approvals in one place.</p></div>
+  <div class="row">
+    <label>Acting as</label>
+    <select id="who" style="width:auto;margin:0"></select>
+    <button class="g" id="reset">Reset demo</button>
+  </div>
+</header>
+<nav id="nav"></nav>
+<main id="app"></main>
+
+<script>
+const KEY='clubTracker.v1';
+const uid=()=>Math.random().toString(36).slice(2,9);
+const today=()=>new Date().toISOString().slice(0,10);
+const esc=s=>String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c));
+
+function seed(){
+  return {
+    users:[
+      {id:'u1',name:'Admin (Staff)',admin:true},
+      {id:'u2',name:'Aarav Sharma'},{id:'u3',name:'Simran Kaur'},
+      {id:'u4',name:'Rohan Mehta'},{id:'u5',name:'Priya Singh'}
+    ],
+    clubs:[
+      {id:'c1',name:'Robotics Club',desc:'Build, program and compete with robots.',cat:'Technology',status:'approved',owner:'u2'},
+      {id:'c2',name:'Drama Society',desc:'Stage plays, street theatre and workshops.',cat:'Arts',status:'approved',owner:'u3'},
+      {id:'c3',name:'Chess Circle',desc:'Weekly games and tournaments.',cat:'Sports',status:'pending',owner:'u4'}
+    ],
+    members:[
+      {id:'m1',club:'c1',user:'u2',role:'President',status:'approved'},
+      {id:'m2',club:'c1',user:'u3',role:'Member',status:'approved'},
+      {id:'m3',club:'c1',user:'u5',role:'Member',status:'pending'},
+      {id:'m4',club:'c2',user:'u3',role:'President',status:'approved'},
+      {id:'m5',club:'c2',user:'u2',role:'Member',status:'approved'}
+    ],
+    events:[
+      {id:'e1',club:'c1',title:'Line-Follower Workshop',date:'2026-12-05',place:'Lab 2',desc:'Hands-on build session.',status:'approved',att:{u2:true,u3:false}},
+      {id:'e2',club:'c2',title:'Winter Play Auditions',date:'2026-12-10',place:'Auditorium',desc:'Open to all members.',status:'pending',att:{}}
+    ],
+    notes:[{id:'n1',club:'c1',title:'Welcome!',body:'First meeting is on Friday at 4 pm.',date:'2026-11-20'}],
+    log:[{t:'2026-11-20',txt:'Robotics Club approved'}]
+  };
+}
+let S;
+try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
+if(!S)S=seed();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function log(txt){S.log.unshift({t:today(),txt});}
+
+let me='u2',tab='clubs',open=null;
+const user=id=>S.users.find(u=>u.id===id)||{name:'?'};
+const club=id=>S.clubs.find(c=>c.id===id)||{name:'?'};
+const cur=()=>user(me);
+const mem=(c,u)=>S.members.find(m=>m.club===c&&m.user===u);
+const canManage=c=>{const m=mem(c,me);return cur().admin||(m&&m.status==='approved'&&['President','Officer'].includes(m.role))};
+const isOwnerRole=c=>{const m=mem(c,me);return cur().admin||(m&&m.status==='approved'&&m.role==='President')};
+
+const tabs=()=>[['clubs','Clubs'],['events','Events'],['news','Announcements'],['history','Activity'],['reports','Reports'],...(cur().admin?[['admin','Admin approval']]:[])];
+
+function render(){
+  document.getElementById('who').innerHTML=S.users.map(u=>`<option value="${u.id}" ${u.id===me?'selected':''}>${esc(u.name)}</option>`).join('');
+  if(!tabs().some(t=>t[0]===tab))tab='clubs';
+  document.getElementById('nav').innerHTML=tabs().map(t=>`<button class="${t[0]===tab?'on':''}" data-t="${t[0]}">${t[1]}</button>`).join('');
+  const v={clubs:vClubs,events:vEvents,news:vNews,history:vHistory,reports:vReports,admin:vAdmin}[tab];
+  document.getElementById('app').innerHTML=open&&tab==='clubs'?vClub(open):v();
+  save();
+}
+
+function vClubs(){
+  const list=S.clubs.filter(c=>c.status==='approved'||c.owner===me||cur().admin);
+  return `<div class="card"><h2>Register a new club</h2>
+    <input id="cn" placeholder="Club name"><input id="cc" placeholder="Category (e.g. Arts)">
+    <textarea id="cd" rows="2" placeholder="Short description"></textarea>
+    <button class="b" data-a="addClub">Submit for approval</button></div>
+  <div class="grid">${list.map(c=>{const m=mem(c.id,me);const n=S.members.filter(x=>x.club===c.id&&x.status==='approved').length;
+    return `<div class="card"><div class="row sp"><h3>${esc(c.name)}</h3><span class="tag ${c.status}">${c.status}</span></div>
+    <div class="m">${esc(c.cat)} · ${n} member${n===1?'':'s'}</div><p>${esc(c.desc)}</p>
+    <div class="row"><button class="g" data-a="view" data-id="${c.id}">View</button>
+    ${c.status==='approved'&&!m?`<button class="b" data-a="join" data-id="${c.id}">Request to join</button>`:''}
+    ${m?`<span class="tag ${m.status}">${m.status==='approved'?m.role:'request '+m.status}</span>`:''}</div></div>`}).join('')||'<p class="m">No clubs yet.</p>'}</div>`;
+}
+
+function vClub(id){
+  const c=club(id);const ms=S.members.filter(m=>m.club===id);const mg=canManage(id);
+  return `<button class="g" data-a="back">← All clubs</button>
+  <div class="card" style="margin-top:10px"><h2>${esc(c.name)} <span class="tag ${c.status}">${c.status}</span></h2><p>${esc(c.desc)}</p>
+  <div class="m">Category: ${esc(c.cat)} · Owner: ${esc(user(c.owner).name)}</div></div>
+  <div class="card"><h2>Members & roles</h2><div class="scroll"><table><tr><th>Name</th><th>Role</th><th>Status</th><th></th></tr>
+  ${ms.map(m=>`<tr><td>${esc(user(m.user).name)}</td><td>${mg&&m.status==='approved'?`<select data-a="role" data-id="${m.id}" style="margin:0;width:auto">${['President','Officer','Member'].map(r=>`<option ${r===m.role?'selected':''}>${r}</option>`).join('')}</select>`:esc(m.role)}</td>
+  <td class="${m.status}">${m.status}</td><td>${mg&&m.status==='pending'?`<button class="b k" data-a="mOk" data-id="${m.id}">Accept</button> <button class="b d" data-a="mNo" data-id="${m.id}">Decline</button>`:''}
+  ${mg&&m.status==='approved'&&m.user!==me?`<button class="g" data-a="mDel" data-id="${m.id}">Remove</button>`:''}</td></tr>`).join('')||'<tr><td colspan="4" class="m">No members.</td></tr>'}</table></div></div>`;
+}
+
+function vEvents(){
+  const mine=S.clubs.filter(c=>c.status==='approved'&&canManage(c.id));
+  const evs=S.events.filter(e=>e.status==='approved'||canManage(e.club)).sort((a,b)=>a.date.localeCompare(b.date));
+  return `${mine.length?`<div class="card"><h2>Create event</h2>
+  <select id="ec">${mine.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select>
+  <input id="et" placeholder="Event title"><div class="row"><input id="ed" type="date" style="flex:1" value="${today()}"><input id="ep" placeholder="Location" style="flex:2"></div>
+  <textarea id="ex" rows="2" placeholder="Description"></textarea><button class="b" data-a="addEvent">Submit event</button>
+  <div class="m">Events from non-admins need admin approval.</div></div>`:''}
+  ${evs.map(e=>{const mg=canManage(e.club);const members=S.members.filter(x=>x.club===e.club&&x.status==='approved');
+  const present=members.filter(x=>e.att[x.user]).length;
+  return `<div class="card"><div class="row sp"><h3>${esc(e.title)}</h3><span class="tag ${e.status}">${e.status}</span></div>
+  <div class="m">${esc(club(e.club).name)} · ${esc(e.date)} · ${esc(e.place)}</div><p>${esc(e.desc)}</p>
+  ${e.status==='approved'?`<div class="m">Attendance: ${present}/${members.length}</div>
+  ${mg?`<div class="row" style="margin-top:6px">${members.map(x=>`<label style="display:flex;gap:4px;align-items:center;color:var(--text)"><input type="checkbox" style="width:auto;margin:0" data-a="att" data-id="${e.id}" data-u="${x.user}" ${e.att[x.user]?'checked':''}>${esc(user(x.user).name)}</label>`).join('')}</div>`:''}`:''}</div>`}).join('')||'<p class="m">No events.</p>'}`;
+}
+
+function vNews(){
+  const mine=S.clubs.filter(c=>c.status==='approved'&&canManage(c.id));
+  const ns=S.notes.filter(n=>club(n.club).status==='approved').sort((a,b)=>b.date.localeCompare(a.date));
+  return `${mine.length?`<div class="card"><h2>Post announcement</h2><select id="nc">${mine.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select>
+  <input id="nt" placeholder="Title"><textarea id="nb" rows="2" placeholder="Message"></textarea><button class="b" data-a="addNote">Post</button></div>`:''}
+  ${ns.map(n=>`<div class="card"><div class="row sp"><h3>${esc(n.title)}</h3><span class="m">${n.date}</span></div><div class="m">${esc(club(n.club).name)}</div><p>${esc(n.body)}</p></div>`).join('')||'<p class="m">No announcements.</p>'}`;
+}
+
+function vHistory(){
+  return `<div class="card"><h2>Activity history</h2>${S.log.map(l=>`<div class="row sp" style="border-bottom:1px solid var(--line);padding:6px 0"><span>${esc(l.txt)}</span><span class="m">${l.t}</span></div>`).join('')||'<p class="m">Nothing yet.</p>'}</div>`;
+}
+
+function vReports(){
+  const ok=S.clubs.filter(c=>c.status==='approved');
+  const rows=ok.map(c=>{const mc=S.members.filter(m=>m.club===c.id&&m.status==='approved').length;
+    const ev=S.events.filter(e=>e.club===c.id&&e.status==='approved');
+    let tot=0,pr=0;ev.forEach(e=>{S.members.filter(m=>m.club===c.id&&m.status==='approved').forEach(m=>{tot++;if(e.att[m.user])pr++})});
+    return {n:c.name,mc,ev:ev.length,rate:tot?Math.round(pr/tot*100):0}});
+  return `<div class="grid"><div class="card"><div class="m">Approved clubs</div><div class="stat">${ok.length}</div></div>
+  <div class="card"><div class="m">Active members</div><div class="stat">${S.members.filter(m=>m.status==='approved').length}</div></div>
+  <div class="card"><div class="m">Events</div><div class="stat">${S.events.filter(e=>e.status==='approved').length}</div></div>
+  <div class="card"><div class="m">Pending approvals</div><div class="stat">${S.clubs.filter(c=>c.status==='pending').length+S.events.filter(e=>e.status==='pending').length}</div></div></div>
+  <div class="card"><div class="row sp"><h2>Per-club summary</h2><button class="g" data-a="csv">Export CSV</button></div><div class="scroll"><table><tr><th>Club</th><th>Members</th><th>Events</th><th>Attendance</th></tr>
+  ${rows.map(r=>`<tr><td>${esc(r.n)}</td><td>${r.mc}</td><td>${r.ev}</td><td>${r.rate}%</td></tr>`).join('')}</table></div></div>`;
+}
+
+function vAdmin(){
+  const pc=S.clubs.filter(c=>c.status==='pending'),pe=S.events.filter(e=>e.status==='pending');
+  const btn=(k,id)=>`<button class="b k" data-a="ok${k}" data-id="${id}">Approve</button> <button class="b d" data-a="no${k}" data-id="${id}">Reject</button>`;
+  return `<div class="card"><h2>Pending clubs</h2>${pc.map(c=>`<div class="row sp" style="padding:6px 0"><span>${esc(c.name)} <span class="m">by ${esc(user(c.owner).name)}</span></span><span>${btn('C',c.id)}</span></div>`).join('')||'<p class="m">None.</p>'}</div>
+  <div class="card"><h2>Pending events</h2>${pe.map(e=>`<div class="row sp" style="padding:6px 0"><span>${esc(e.title)} <span class="m">(${esc(club(e.club).name)}, ${e.date})</span></span><span>${btn('E',e.id)}</span></div>`).join('')||'<p class="m">None.</p>'}</div>`;
+}
+
+function val(id){const e=document.getElementById(id);return e?e.value.trim():''}
+function decide(list,id,ok,label){const x=list.find(i=>i.id===id);x.status=ok?'approved':'rejected';log(`${label} "${x.name||x.title}" ${x.status}`)}
+
+document.getElementById('app').addEventListener('click',ev=>{
+  const b=ev.target.closest('[data-a]');if(!b||b.tagName==='SELECT'||b.type==='checkbox')return;
+  const a=b.dataset.a,id=b.dataset.id;
+  if(a==='view'){open=id}
+  else if(a==='back'){open=null}
+  else if(a==='addClub'){if(!val('cn'))return;const c={id:uid(),name:val('cn'),cat:val('cc')||'General',desc:val('cd'),status:cur().admin?'approved':'pending',owner:me};S.clubs.push(c);S.members.push({id:uid(),club:c.id,user:me,role:'President',status:c.status==='approved'?'approved':'pending'});log(`Club "${c.name}" submitted by ${cur().name}`)}
+  else if(a==='join'){S.members.push({id:uid(),club:id,user:me,role:'Member',status:'pending'});log(`${cur().name} requested to join ${club(id).name}`)}
+  else if(a==='mOk'){const m=S.members.find(x=>x.id===id);m.status='approved';log(`${user(m.user).name} joined ${club(m.club).name}`)}
+  else if(a==='mNo'){const m=S.members.find(x=>x.id===id);S.members=S.members.filter(x=>x!==m);log(`${user(m.user).name}'s request to ${club(m.club).name} declined`)}
+  else if(a==='mDel'){const m=S.members.find(x=>x.id===id);S.members=S.members.filter(x=>x!==m);log(`${user(m.user).name} removed from ${club(m.club).name}`)}
+  else if(a==='addEvent'){if(!val('et'))return;const e={id:uid(),club:val('ec'),title:val('et'),date:val('ed')||today(),place:val('ep'),desc:val('ex'),status:cur().admin?'approved':'pending',att:{}};S.events.push(e);log(`Event "${e.title}" created for ${club(e.club).name}`)}
+  else if(a==='addNote'){if(!val('nt'))return;S.notes.push({id:uid(),club:val('nc'),title:val('nt'),body:val('nb'),date:today()});log(`Announcement posted in ${club(val('nc')).name}`)}
+  else if(a==='okC')decide(S.clubs,id,true,'Club');
+  else if(a==='noC')decide(S.clubs,id,false,'Club');
+  else if(a==='okE')decide(S.events,id,true,'Event');
+  else if(a==='noE')decide(S.events,id,false,'Event');
+  else if(a==='csv'){
+    const rows=[['Club','Members','Events']].concat(S.clubs.filter(c=>c.status==='approved').map(c=>[c.name,S.members.filter(m=>m.club===c.id&&m.status==='approved').length,S.events.filter(e=>e.club===c.id&&e.status==='approved').length]));
+    const t=rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');
+    const w=window.open('','_blank');if(w){w.document.write('<pre>'+esc(t)+'</pre>')}return}
+  render();
+});
+document.getElementById('app').addEventListener('change',ev=>{
+  const t=ev.target;
+  if(t.dataset.a==='role'){const m=S.members.find(x=>x.id===t.dataset.id);m.role=t.value;log(`${user(m.user).name} is now ${t.value} of ${club(m.club).name}`)}
+  else if(t.dataset.a==='att'){const e=S.events.find(x=>x.id===t.dataset.id);e.att[t.dataset.u]=t.checked;log(`Attendance updated for "${e.title}"`)}
+  else return;
+  render();
+});
+document.getElementById('nav').addEventListener('click',e=>{const b=e.target.closest('[data-t]');if(b){tab=b.dataset.t;open=null;render()}});
+document.getElementById('who').addEventListener('change',e=>{me=e.target.value;open=null;render()});
+document.getElementById('reset').addEventListener('click',()=>{S=seed();me='u2';tab='clubs';open=null;render()});
+render();
+</script>
+</body>
+</html>
